@@ -274,6 +274,12 @@ variable "launch_template_tags" {
   default     = {}
 }
 
+variable "launch_template_tags_ignored" {
+  description = "A list of tags to ignore for the tag_specifications of launch template created"
+  type        = list(string)
+  default     = []
+}
+
 variable "tag_specifications" {
   description = "The tags to apply to the resources during launch"
   type        = list(string)

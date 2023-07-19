@@ -285,6 +285,12 @@ module "eks" {
         }
       }
 
+      # Add tags to be ignored by the launch template if was changed.
+      # This is useful to avoid unnecessary updates to the launch template
+      launch_template_tags_ignored = [
+        "ExtraTag"
+      ]
+
       tags = {
         ExtraTag = "EKS managed node group complete example"
       }

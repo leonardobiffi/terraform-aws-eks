@@ -274,7 +274,7 @@ resource "aws_launch_template" "this" {
 
     content {
       resource_type = tag_specifications.key
-      tags          = merge(var.tags, { Name = var.name }, var.launch_template_tags)
+      tags          = local.launch_template_tag_specifications
     }
   }
 
@@ -292,6 +292,14 @@ resource "aws_launch_template" "this" {
 
   lifecycle {
     create_before_destroy = true
+  }
+}
+
+locals {
+  # Remove the informed tags to not be used in tags_specifications
+  launch_template_tag_specifications = {
+    for k, v in merge(var.tags, { Name = var.name }, var.launch_template_tags) :
+    k => v if !contains(var.launch_template_tags_ignored, k)
   }
 }
 
